@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+#
+#	testfindincludes: a quick test program for the new FindIncludes module
+#
+#	Written by Duncan C. White; June 2022.
+#
+
+use strict;
+use warnings;
+use feature 'say';
+use Data::Dumper;
+use Cwd;
+use Getopt::Long;
+use FindBin qw($Bin);
+
+use lib "$Bin";
+#use FindIncludes;
+use OldFindIncludes;
+
+find_all_includes();

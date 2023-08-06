@@ -1,0 +1,22 @@
+#!/bin/sh -
+
+PKGS=`grep '^use [A-Z]' bin/* lib/* | awk '{print $2}' | tr -d ';' | sort -u | grep -v Rules | grep -v FindIncludes`
+echo installing $PKGS into local
+cpanm -L local --force $PKGS
+
+perlversion=$(perl -MConfig -e 'print $Config{version}')
+
+for i in cb cr
+do
+	EXEC=bin/$i
+	PACKEDEXEC=packed$i
+
+	echo packaging $EXEC and local libs into $PACKEDEXEC
+
+	pp -B \
+	    -I ./local/lib/perl5 \
+	    -a "./local/lib/perl5/;$perlversion/" \
+	    -a lib \
+	    -o $PACKEDEXEC \
+	    $EXEC
+done

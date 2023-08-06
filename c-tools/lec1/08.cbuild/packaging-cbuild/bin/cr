@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+#
+#	cr: a companion to cbuild, aka cb, this "crun" compiles a C program
+#	using cb and then invokes the executable.
+#
+#	Written by Duncan C. White; December 2022
+#
+
+use strict;
+use warnings;
+#use feature 'say';
+#use Data::Dumper;
+use Getopt::Long;
+
+my $rebuild = 0;
+die "Usage: cr [--rebuild] Filename.c\n" unless
+	GetOptions( 'rebuild' => \$rebuild ) && @ARGV==1;
+
+my $filename = shift;
+
+$filename =~ s/\.c$//;
+$filename .= ".c";
+
+die "cr: filename $filename should end in .c\n" unless $filename =~ /\.c$/;
+
+my $options = $rebuild ? "--allclean" : "";
+
+if( system( "cb $options $filename" ) != 0 )
+{
+	die "cr: cb failed\n";
+}
+$filename =~ s/\.c$//;
+if( -x $filename )
+{
+	print "running $filename\n";
+	system( "./$filename" )
+}

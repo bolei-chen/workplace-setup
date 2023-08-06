@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+#	graphpairs: read an array of pairs, one per line, and
+#		an optional command line argument: the graph name,
+#		(which defaults to "graph1" if missing)
+#		and generate 2 files:
+#		- graphname.dot: a GraphViz "dot" format digraph
+#		- graphname.ps : viewable postscript form of the graph
+
+use strict;
+use warnings;
+use feature qw(say);
+use Data::Dumper;
+
+my $graphname = shift;
+$graphname //= "graph1";
+
+my @pair;
+while( <> )
+{
+	chomp;
+	my( $a, $b ) = split( /\s+/, $_, 2 );
+	push @pair, [$a,$b];
+}
+
+my $dot = "$graphname.dot";
+
+say "creating $dot";
+
+open( my $g, '>', $dot ) || die "can't create $dot\n";
+
+my %node;	# maps dep name eg "name.c" to N, a node number
+my $nfn = 1;	# next free node no
+say $g qq(digraph "$graphname" {);
+foreach my $pair (@pair)
+{
+	my( $a, $b ) = @$pair;
+	$node{$a} //= $nfn++;
+	my $anode = $node{$a};
+	$node{$b} //= $nfn++;
+	my $bnode = $node{$b};
+	say $g "  $anode -> $bnode;";
+}
+foreach my $n (sort keys %node)
+{
+	my $nn = $node{$n};
+	say $g qq(  $nn [label="$n"];);
+}
+say $g "}";
+close( $g );
+
+my $ps = "$graphname.ps";
+
+say "creating $ps";
+system( "dot -Tps $dot > $ps" );

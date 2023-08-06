@@ -1,0 +1,8 @@
+These c tools are collected form c programming lectures at imperial college london
+The tools were made by Duncan C. White (d.white@imperial.ac.uk)
+
+- lec1
+  - this directory covers the automated tool for building a c project: cbuild
+  - i think it is beautiful
+- lec2
+  - this directory covers the usage of gdb and valgrind for debugging c

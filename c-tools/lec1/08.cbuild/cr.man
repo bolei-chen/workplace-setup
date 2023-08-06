@@ -1,0 +1,26 @@
+.nr X
+.TH cr 1 "12 Dec 2022"
+.SH NAME
+cr \- compile and link a simple C program and then run it.
+.SH SYNOPSIS
+.B cr
+.I source_file_name
+
+.SH DESCRIPTION
+.B cr
+is a small companion told to cbuild, aka cb: standing for "crun" it
+compiles a C program using cb and then invokes the executable.
+.B cr's
+single argument is the name of a C source file that includes
+.B main().
+
+.SH FLAGS
+.TP 10
+There are no flags.
+
+.PD
+.SH SEE ALSO
+.BR cb (1)
+.BR make (1)
+.BR mfbuild (1)
+.LP

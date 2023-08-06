@@ -1,0 +1,27 @@
+digraph t {
+  1 -> 2;
+  3 -> 4;
+  5 -> 2;
+  5 -> 6;
+  7 -> 4;
+  8 -> 6;
+  9 -> 10;
+  11 -> 12;
+  13 -> 10;
+  14 -> 10;
+  14 -> 12;
+  9 [label="famcoll.c"];
+  10 [label="famcoll.h"];
+  1 [label="hash.c"];
+  2 [label="hash.h"];
+  11 [label="readline.c"];
+  12 [label="readline.h"];
+  3 [label="set.c"];
+  4 [label="set.h"];
+  13 [label="testfamcoll.c"];
+  5 [label="testhash.c"];
+  7 [label="testset.c"];
+  8 [label="testutils.c"];
+  6 [label="testutils.h"];
+  14 [label="transform.c"];
+}
